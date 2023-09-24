@@ -1,4 +1,4 @@
-package dtos;
+package dev.pulkit.productservice.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,22 +1,17 @@
-package Controller;
+package dev.pulkit.productservice.Controller;
 
-import Services.productservice;
-import dtos.productdtos;
+import dev.pulkit.productservice.Services.productservice;
+import dev.pulkit.productservice.dtos.productdtos;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
 public class productcontroller {
-    private productservice ps;
+    private final productservice ps;
     public productcontroller(productservice ps)
     {
         this.ps=ps;
     }
-
-
-
-
-
     @GetMapping()
     public String getallproducts()
     {
@@ -29,7 +24,7 @@ public class productcontroller {
         return "product with id"+productid;
     }
 
-    @PostMapping()
+    @PostMapping("/")
     public productdtos addnewproduct(@RequestBody productdtos productdto)
     {
         return productdto;

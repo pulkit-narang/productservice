@@ -1,4 +1,4 @@
-package Services;
+package dev.pulkit.productservice.Services;
 
 import org.springframework.stereotype.Service;
 
