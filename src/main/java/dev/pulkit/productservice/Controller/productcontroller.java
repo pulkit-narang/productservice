@@ -1,17 +1,20 @@
 package dev.pulkit.productservice.Controller;
 
 import dev.pulkit.productservice.Services.productservice;
+import dev.pulkit.productservice.dtos.getsingleproductdtos;
 import dev.pulkit.productservice.dtos.productdtos;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
 public class productcontroller {
-    private final productservice ps;
+    private  productservice ps;
     public productcontroller(productservice ps)
     {
         this.ps=ps;
     }
+
     @GetMapping()
     public String getallproducts()
     {
@@ -19,9 +22,9 @@ public class productcontroller {
     }
 
     @GetMapping("/{productid}")
-    public String getsingleproducts(@PathVariable("productid") Long productid)
+    public getsingleproductdtos getsingleproducts(@PathVariable("productid") Long productid)
     {
-        return "product with id"+productid;
+        return new getsingleproductdtos(ps.getsingleproduct(productid));
     }
 
     @PostMapping("/")

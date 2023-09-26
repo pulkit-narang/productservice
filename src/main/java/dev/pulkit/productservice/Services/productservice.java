@@ -1,8 +1,17 @@
 package dev.pulkit.productservice.Services;
 
+import dev.pulkit.productservice.Models.product;
+import dev.pulkit.productservice.dtos.productdtos;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class productservice {
+public interface productservice {
+    List<product> getallproducts();
+    product getsingleproduct(Long productid);
+    boolean deleteproduct(Long productid);
+    product addnewproduct(product product);
+    product updateproduct(Long productid,productdtos product);
 
 }
