@@ -11,7 +11,7 @@ public interface productservice {
     List<product> getallproducts();
     product getsingleproduct(Long productid);
     boolean deleteproduct(Long productid);
-    product addnewproduct(product product);
+    product addnewproduct(productdtos product);
     product updateproduct(Long productid,productdtos product);
 
 }

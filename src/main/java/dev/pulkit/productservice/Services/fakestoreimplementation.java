@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 @Builder
@@ -23,9 +24,29 @@ public class fakestoreimplementation implements productservice {
     @Override
     public List<product> getallproducts() {
         RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<productdtos[]> response=restTemplate.getForEntity("https://fakestoreapi.com/products",productdtos[].class);
+        productdtos[] pd=response.getBody();
+        List<product> l=new ArrayList<>();
+        for(productdtos productdto:pd)
+        {
+            product prod = new product();
+            prod.setId(productdto.getId());
+            prod.setTitle(productdto.getTitle());
+
+            prod.setImageurl(productdto.getImage());
+            prod.setPrice(productdto.getPrice());
+            Category category = new Category();
+            category.setname(productdto.getCategory());
+            prod.setCategory(category);
+            l.add(prod);
 
 
-        return null;
+        }
+        return l;
+
+
+
+
     }
 
     @Override
@@ -53,15 +74,27 @@ public class fakestoreimplementation implements productservice {
     }
 
     @Override
-    public product addnewproduct(product product) {
-        return null;
+    public product addnewproduct(productdtos product) {
+
+       RestTemplate restTemplate = restTemplateBuilder.build();
+       ResponseEntity<productdtos> response = restTemplate.postForEntity("https://fakestoreapi.com/products",product,productdtos.class);
+       productdtos productdto =response.getBody();
+        product prod = new product();
+        prod.setId(productdto.getId());
+        prod.setTitle(productdto.getTitle());
+
+        prod.setImageurl(productdto.getImage());
+        prod.setPrice(productdto.getPrice());
+        Category category = new Category();
+        category.setname(productdto.getCategory());
+        prod.setCategory(category);
+
+        return prod;
+
+
     }
 
-//    @Override
-//    public product addnewproduct( String title, Category category,String description,double price,String imageurl)
-//    {
-//
-//    }
+
 
     @Override
     public product updateproduct(Long productid, productdtos product) {
